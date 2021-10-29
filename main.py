@@ -2,8 +2,6 @@ from discord import user
 from discord.ext import commands
 import discord
 import asyncio
-# from discord import Embed
-# import os
 
 bot = commands.Bot(command_prefix='$')
 
@@ -70,17 +68,14 @@ async def Start(ctx, timeInput):
             return
         if time >= 3600:
             message = discord.Embed(title="Timer")
-            # message.set_author(name=ctx.author.name, icon_url=profilePicture)
             message.add_field(name=ctx.author.name,value=f"Timer: {time//3600} hours {time%3600//60} minutes {time%60} seconds", inline=False)
             await ctx.send(embed=message)
         elif time >= 60:
             message=discord.Embed(title="Timer")
-            # message.set_author(name=ctx.author.name, icon_url=profilePicture)
             message.add_field(name=ctx.author.name,value=f"Timer: {time%3600//60} minutes {time%60} seconds", inline=False)
             await ctx.send(embed=message)
         elif time < 60:
             message=discord.Embed(title="Timer")
-            # message.set_author(name=ctx.author.name, icon_url=profilePicture)
             message.add_field(name=ctx.author.name,value=f"Timer: {time%60} seconds", inline=False)
             await ctx.send(embed=message)
         while True:
@@ -111,7 +106,3 @@ async def kick(ctx, member: discord.Member, *, reason=None):
     await ctx.send(f'User {member.mention} has been kicked for `{reason}`')
 
 bot.run('TOKEN')
-
-# embed=discord.Embed(title="Timer")
-# embed.add_field(name="undefined", value="{timer}", inline=False)
-# await ctx.send(embed=embed)
