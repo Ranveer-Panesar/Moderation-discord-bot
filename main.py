@@ -96,6 +96,27 @@ async def avatar(ctx,  avamember : discord.Member=None):
     if not avamember: avamember = ctx.author
     userAvatarUrl = avamember.avatar_url
     await ctx.send(userAvatarUrl)
+  
+@bot.command()
+@commands.has_permissions(ban_members=True)
+async def ban(ctx, member: discord.Member, *, reason=None):
+    if reason == None:
+        reason="No reason provided"
+    await ctx.guild.ban(member)
+    await ctx.send(f"User {member.mention} has been banned for `{reason}`")
+
+@bot.command()
+@commands.has_permissions(ban_members=True)
+async def unban(ctx, *, member):
+	banned_users = await ctx.guild.bans()
+	
+	member_name, member_discriminator = member.split('#')
+	for ban_entry in banned_users:
+		user = ban_entry.user
+		
+		if (user.name, user.discriminator) == (member_name, member_discriminator):
+ 			await ctx.guild.unban(user)
+ 			await ctx.channel.send(f"Unbanned: {user.mention}")
 
 @bot.command()
 @commands.has_permissions(kick_members=True)
